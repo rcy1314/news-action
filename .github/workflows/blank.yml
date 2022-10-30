@@ -49,7 +49,7 @@ jobs:
       - name: '发送到微信群'
         uses: rc1314/news-action@master
         with:
-          url: ${{ secrets.DINGTALK_WEBHOOK}}
+          url: ${{ secrets.WECHAT_WEBHOOK}}
           type: text
           at: all
           content: |
