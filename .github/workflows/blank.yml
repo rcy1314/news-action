@@ -48,7 +48,7 @@ jobs:
 
           
       - name: '发送到微信群'
-        uses: rc1314/news-action@master
+        uses: fifsky/dingtalk-action@master
         with:
           url: ${{ secrets.WECHAT_WEBHOOK}}
           type: text
