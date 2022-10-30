@@ -32,6 +32,7 @@ jobs:
             echo 'FILE_TEXT<<EOF' >> $GITHUB_ENV
             cat ./result.txt >> $GITHUB_ENV
             echo 'EOF' >> $GITHUB_ENV
+            
 #       - name: 'Send mail'
 #         uses: dawidd6/action-send-mail@master
 #         with:
