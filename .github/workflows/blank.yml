@@ -1,7 +1,8 @@
 on:
   push:
   schedule:
-    - cron: "38 22 * * *" #早上6点45左右推送
+    - cron: "38 23 * * *" #早上7点45左右推送
+  workflow_dispatch:
     
 jobs:
   bot:
@@ -19,6 +20,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install setuptools wheel twine
           pip install bs4
+          pip install requests
       - name: 'Get DataSource'
         run: curl https://news.topurl.cn > ./result.html
       - name: 'Get Info'
@@ -47,14 +49,30 @@ jobs:
 #           content_type: text/html
 
           
+#       - name: '发送到企业微信群'
+#         uses: fifsky/dingtalk-action@master
+#         with:
+#           url: ${{ secrets.WECHAT_WEBHOOK}}
+#           type: text
+#           at: all
+#           content: |
+#             ${{env.FILE_TEXT}}
+
       - name: '发送到微信群'
         uses: fifsky/dingtalk-action@master
         with:
-          url: ${{ secrets.WECHAT_WEBHOOK}}
+          url: ${{ secrets.WECHATQUN_WEBHOOK}}
           type: text
-          at: all
+          to: ${{ secrets.WECHAT_QUN}}
           content: |
             ${{env.FILE_TEXT}}
+
+      - name: 'Send to Telegram Channel'
+        run: |
+          python send_to_telegram.py
+        env:
+          TELEGRAM_API_TOKEN: ${{ secrets.TELEGRAM_API_TOKEN }}
+          TELEGRAM_CHANNEL_ID: <YOUR_CHANNEL_ID>
                      
       - name: '打完收工,提交代码!'
         run: |
