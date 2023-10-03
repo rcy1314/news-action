@@ -49,14 +49,14 @@ jobs:
 #           content_type: text/html
 
           
-#       - name: '发送到企业微信群'
-#         uses: fifsky/dingtalk-action@master
-#         with:
-#           url: ${{ secrets.WECHAT_WEBHOOK}}
-#           type: text
-#           at: all
-#           content: |
-#             ${{env.FILE_TEXT}}
+      - name: '发送到企业微信群'
+        uses: fifsky/dingtalk-action@master
+        with:
+           url: ${{ secrets.WECHAT_WEBHOOK}}
+           type: text
+           at: all
+           content: |
+             ${{env.FILE_TEXT}}
 
       - name: '发送到中间件'
         uses: fifsky/dingtalk-action@master
@@ -67,7 +67,7 @@ jobs:
           content: |
             ${{env.FILE_TEXT}}
 
-      - name: 'Send to Telegram Channel'
+      - name: '发送到TG频道'
         run: |
           python send_to_telegram.py
         env:
