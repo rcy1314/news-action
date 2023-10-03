@@ -63,7 +63,7 @@ jobs:
         with:
           url: ${{ secrets.WECHATQUN_WEBHOOK}}
           type: text
-          to: ${{ secrets.WECHAT_QUN}}
+          at: ${{ secrets.WECHAT_QUN}}
           content: |
             ${{env.FILE_TEXT}}
 
