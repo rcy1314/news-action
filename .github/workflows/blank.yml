@@ -20,6 +20,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install setuptools wheel twine
           pip install bs4
+          pip install requests
       - name: 'Get DataSource'
         run: curl https://news.topurl.cn > ./result.html
       - name: 'Get Info'
@@ -57,14 +58,21 @@ jobs:
 #           content: |
 #             ${{env.FILE_TEXT}}
 
-      - name: '发送到微信群'
+      - name: '发送到中间件'
         uses: fifsky/dingtalk-action@master
         with:
           url: ${{ secrets.WECHATQUN_WEBHOOK}}
           type: text
-          to: 文件传输助手
+          at: all
           content: |
             ${{env.FILE_TEXT}}
+
+      - name: 'Send to Telegram Channel'
+        run: |
+          python send_to_telegram.py
+        env:
+          TELEGRAM_API_TOKEN: ${{ secrets.TELEGRAM_API_TOKEN }}
+          TELEGRAM_CHANNEL_ID: -1001436520490
                      
       - name: '打完收工,提交代码!'
         run: |
