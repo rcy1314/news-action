@@ -20,7 +20,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install setuptools wheel twine
           pip install bs4
-          pip install requests
       - name: 'Get DataSource'
         run: curl https://news.topurl.cn > ./result.html
       - name: 'Get Info'
@@ -66,13 +65,6 @@ jobs:
           at: ${{ secrets.WECHAT_QUN}}
           content: |
             ${{env.FILE_TEXT}}
-
-      - name: 'Send to Telegram Channel'
-        run: |
-          python send_to_telegram.py
-        env:
-          TELEGRAM_API_TOKEN: ${{ secrets.TELEGRAM_API_TOKEN }}
-          TELEGRAM_CHANNEL_ID: <YOUR_CHANNEL_ID>
                      
       - name: '打完收工,提交代码!'
         run: |
