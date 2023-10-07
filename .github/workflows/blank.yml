@@ -62,7 +62,8 @@ jobs:
         with:
           webhook: ${{ secrets.WECHAT_WEBHOOK }}
           msgtype: text
-          content: '{"text": "${{ env.FILE_TEXT }}"}'
+          content: |
+            {"text": "${{ env.FILE_TEXT }}"}
 
        
 
@@ -72,7 +73,8 @@ jobs:
         with:
           webhook: ${{ secrets.WECHATQUN_WEBHOOK}}
           msgtype: text
-          content: '{"text": "${{ env.FILE_TEXT }}"}'
+          content: |
+            {"text": "${{ env.FILE_TEXT }}"}
 
         
 
