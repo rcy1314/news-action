@@ -63,7 +63,7 @@ jobs:
           webhook: ${{ secrets.WECHAT_WEBHOOK }}
           msgtype: text
           content: |
-            {"text": "${{ env.FILE_TEXT }}"}
+            {"text": "commit: ${{ env.FILE_TEXT }}"}
 
        
 
@@ -74,7 +74,7 @@ jobs:
           webhook: ${{ secrets.WECHATQUN_WEBHOOK}}
           msgtype: text
           content: |
-            {"text": "${{ env.FILE_TEXT }}"}
+            {"text": "commit: ${{ env.FILE_TEXT }}"}
 
         
 
