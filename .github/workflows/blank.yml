@@ -62,9 +62,8 @@ jobs:
         with:
           webhook: ${{ secrets.WECHAT_WEBHOOK }}
           msgtype: text
-          
-          content: |
-            ${{ env.FILE_TEXT }}
+          content: '{"text": "${{ env.FILE_TEXT }}"}'
+
        
 
 
@@ -73,9 +72,8 @@ jobs:
         with:
           webhook: ${{ secrets.WECHATQUN_WEBHOOK}}
           msgtype: text
-         
-          content: |
-            ${{env.FILE_TEXT}}
+          content: '{"text": "${{ env.FILE_TEXT }}"}'
+
         
 
       - name: '发送到TG频道'
