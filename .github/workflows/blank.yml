@@ -13,7 +13,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '17'
+          node-version: '16'
       - name: Use Node.js version 16.x
         run: |
           sudo npm install -g n
@@ -59,15 +59,20 @@ jobs:
           
       - name: '发送到企业微信群'
         uses: fifsky/dingtalk-action@master
+        env:
+          GLOBAL_DISPATCHER: 'undici'
         with:
-           url: ${{ secrets.WECHAT_WEBHOOK}}
-           type: text
-           at: all
-           content: |
-             ${{env.FILE_TEXT}}
+          url: ${{ secrets.WECHAT_WEBHOOK }}
+          type: text
+          at: all
+          content: |
+            ${{ env.FILE_TEXT }}
+
 
       - name: '发送到中间件'
         uses: fifsky/dingtalk-action@master
+        env:
+          GLOBAL_DISPATCHER: 'undici'
         with:
           url: ${{ secrets.WECHATQUN_WEBHOOK}}
           type: text
