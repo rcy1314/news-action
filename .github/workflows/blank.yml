@@ -58,23 +58,27 @@ jobs:
 
           
       - name: '发送到企业微信群'
-        uses: MeanZhang/wecom-group-robot@v1
+        uses: ghostoy/dingtalk-action@master
         with:
-          url: ${{ secrets.WECHAT_WEBHOOK }}
-          type: text
-          at: all
+          webhook: ${{ secrets.WECHAT_WEBHOOK }}
+          msgtype: text
+          
           content: |
             ${{ env.FILE_TEXT }}
+        env:
+          GLOBAL_DISPATCHER: 'window'
 
 
       - name: '发送到中间件'
-        uses: MeanZhang/wecom-group-robot@v1
+        uses: ghostoy/dingtalk-action@master
         with:
-          url: ${{ secrets.WECHATQUN_WEBHOOK}}
-          type: text
-          at: all
+          webhook: ${{ secrets.WECHATQUN_WEBHOOK}}
+          msgtype: text
+         
           content: |
             ${{env.FILE_TEXT}}
+        env:
+          GLOBAL_DISPATCHER: 'window'
 
       - name: '发送到TG频道'
         run: |
