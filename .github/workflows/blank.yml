@@ -58,25 +58,27 @@ jobs:
 
           
       - name: '发送到企业微信群'
-        uses: ghostoy/dingtalk-action@master
+        
         with:
-          webhook: ${{ secrets.WECHAT_WEBHOOK }}
-          msgtype: text
+          url: ${{ secrets.WECHAT_WEBHOOK }}
+          type: text
+          at: all
           content: |
-            {"text": "commit: ${{ env.FILE_TEXT }}"}
-
-       
+            ${{ env.FILE_TEXT }}
+        env:
+          GLOBAL_DISPATCHER: 'global'
 
 
       - name: '发送到中间件'
-        uses: ghostoy/dingtalk-action@master
+       
         with:
-          webhook: ${{ secrets.WECHATQUN_WEBHOOK}}
-          msgtype: text
+          url: ${{ secrets.WECHATQUN_WEBHOOK}}
+          type: text
+          at: all
           content: |
-            {"text": "commit: ${{ env.FILE_TEXT }}"}
-
-        
+            ${{env.FILE_TEXT}}
+        env:
+          GLOBAL_DISPATCHER: 'global'
 
       - name: '发送到TG频道'
         run: |
