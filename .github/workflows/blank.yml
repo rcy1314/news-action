@@ -58,7 +58,7 @@ jobs:
 
           
       - name: '发送到企业微信群'
-        uses: fifsky/dingtalk-action@master
+        uses: appleboy/dingtalk-action@master
         with:
           url: ${{ secrets.WECHAT_WEBHOOK }}
           type: text
@@ -70,7 +70,7 @@ jobs:
 
 
       - name: '发送到中间件'
-        uses: fifsky/dingtalk-action@master
+        uses: appleboy/dingtalk-action@master
         with:
           url: ${{ secrets.WECHATQUN_WEBHOOK}}
           type: text
