@@ -59,26 +59,26 @@ jobs:
           
       - name: '发送到企业微信群'
         uses: fifsky/dingtalk-action@master
-        env:
-          GLOBAL_DISPATCHER: 'global'
         with:
           url: ${{ secrets.WECHAT_WEBHOOK }}
           type: text
           at: all
           content: |
             ${{ env.FILE_TEXT }}
+        env:
+          GLOBAL_DISPATCHER: 'global'
 
 
       - name: '发送到中间件'
         uses: fifsky/dingtalk-action@master
-        env:
-          GLOBAL_DISPATCHER: 'global'
         with:
           url: ${{ secrets.WECHATQUN_WEBHOOK}}
           type: text
           at: all
           content: |
             ${{env.FILE_TEXT}}
+        env:
+          GLOBAL_DISPATCHER: 'global'
 
       - name: '发送到TG频道'
         run: |
