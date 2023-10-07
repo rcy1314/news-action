@@ -58,27 +58,27 @@ jobs:
 
           
       - name: '发送到企业微信群'
-        
+        uses: chf007/action-wechat-work@master
         with:
-          url: ${{ secrets.WECHAT_WEBHOOK }}
-          type: text
-          at: all
+        
+          msgtype: text
+          
           content: |
             ${{ env.FILE_TEXT }}
         env:
-          GLOBAL_DISPATCHER: 'global'
+          WECHAT_WORK_BOT_WEBHOOK: ${{ secrets.WECHAT_WEBHOOK }}
 
 
       - name: '发送到中间件'
-       
+        uses: chf007/action-wechat-work@master
         with:
-          url: ${{ secrets.WECHATQUN_WEBHOOK}}
-          type: text
-          at: all
+         
+          msgtype: text
+          
           content: |
             ${{env.FILE_TEXT}}
         env:
-          GLOBAL_DISPATCHER: 'global'
+          WECHAT_WORK_BOT_WEBHOOK: ${{ secrets.WECHATQUN_WEBHOOK}}
 
       - name: '发送到TG频道'
         run: |
