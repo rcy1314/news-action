@@ -6,10 +6,18 @@ on:
     
 jobs:
   bot:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: 'Checkout codes'
         uses: actions/checkout@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      - name: Use Node.js version 16.x
+        run: |
+          npm install -g n
+          n 16.x
       - name: python env
         uses: actions/setup-python@v4
         with:
