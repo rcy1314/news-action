@@ -13,8 +13,8 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
-      - name: Use Node.js version 16.x
+          node-version: '18'
+      - name: Use Node.js version 18.x
         run: |
           sudo npm install -g n
           sudo n 16
