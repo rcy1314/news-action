@@ -61,14 +61,14 @@ jobs:
         uses: appleboy/telegram-action@master
         with:
           url: ${{ secrets.WECHAT_WEBHOOK }}
-          to: ${{ secrets.WECHAT_TO }}
+          to: all
           message: ${{ env.FILE_TEXT }}
           
       - name: '发送到中间件'
         uses: appleboy/telegram-action@master
         with:
           url: ${{ secrets.WECHATQUN_WEBHOOK}}
-          to: ${{ secrets.WECHATQUN_TO }}
+          to: all
           message: ${{ env.FILE_TEXT }}
 
       - name: '发送到TG频道'
