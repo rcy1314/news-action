@@ -65,8 +65,7 @@ jobs:
           
           content: |
             ${{ env.FILE_TEXT }}
-        env:
-          GLOBAL_DISPATCHER: 'window'
+       
 
 
       - name: '发送到中间件'
@@ -77,8 +76,7 @@ jobs:
          
           content: |
             ${{env.FILE_TEXT}}
-        env:
-          GLOBAL_DISPATCHER: 'window'
+        
 
       - name: '发送到TG频道'
         run: |
