@@ -60,7 +60,7 @@ jobs:
       - name: '发送到企业微信群'
         uses: fifsky/dingtalk-action@master
         env:
-          GLOBAL_DISPATCHER: 'undici'
+          GLOBAL_DISPATCHER: 'global'
         with:
           url: ${{ secrets.WECHAT_WEBHOOK }}
           type: text
@@ -72,7 +72,7 @@ jobs:
       - name: '发送到中间件'
         uses: fifsky/dingtalk-action@master
         env:
-          GLOBAL_DISPATCHER: 'undici'
+          GLOBAL_DISPATCHER: 'global'
         with:
           url: ${{ secrets.WECHATQUN_WEBHOOK}}
           type: text
