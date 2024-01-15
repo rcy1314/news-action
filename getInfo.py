@@ -1,12 +1,12 @@
 from bs4 import BeautifulSoup
 import requests
 
-soup = BeautifulSoup(open('result.html'),"html.parser")
+soup = BeautifulSoup(open('result.html', encoding='utf-8'),"html.parser")
 titleArr = soup.select('.u')
 #标题
 if titleArr:
     headerTitle = titleArr[0].get_text()
-else:
+else: # If the list has fewer than two elements
     headerTitle = 'Default Header Title'
 formatText = headerTitle + '\n'
 
@@ -19,8 +19,9 @@ for div in newsElement:
 formatText += newsStr + '\n'
 
 #历史上的今天
-if len(soup.select('.u')) > 1:
-    historyTitle = soup.select('.u')[1].get_text()
+titleArr = soup.select('.u')
+if len(titleArr) > 1:
+    historyTitle = titleArr[1].get_text()
 else:
     historyTitle = 'Default historyTitle'
 formatText += historyTitle + '\n'
