@@ -28,7 +28,7 @@ for a in soup.select('.history-wrap > .line a'):
 	index += 1
 	history += str(index) + '. ' + a.get_text() + '\n'
 
-formatText += history + '\n'
+formatText = formatText + history + '\n'
 
 #时间进度条
 progress = '时间进度条: ' + soup.select('.progress-bar')[0].get_text()
