@@ -3,7 +3,10 @@ from bs4 import BeautifulSoup
 soup = BeautifulSoup(open('result.html'),"html.parser")
 titleArr = soup.select('.u')
 #标题
-headerTitle = titleArr[0].get_text()
+if titleArr:
+    headerTitle = titleArr[0].get_text()
+else:
+    headerTitle = 'Default Header Title'
 formatText = headerTitle + '\n'
 
 #新闻
