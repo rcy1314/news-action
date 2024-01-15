@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+import requests
 
 soup = BeautifulSoup(open('result.html'),"html.parser")
 titleArr = soup.select('.u')
@@ -18,7 +19,10 @@ for div in newsElement:
 formatText += newsStr + '\n'
 
 #历史上的今天
-historyTitle = soup.select('.u')[1].get_text()
+if len(soup.select('.u')) > 1:
+    historyTitle = soup.select('.u')[1].get_text()
+else:
+    historyTitle = 'Default historyTitle'
 formatText += historyTitle + '\n'
 historyArr = soup.select('.history-wrap > .line a')
 index = 0
