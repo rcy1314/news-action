@@ -3,7 +3,10 @@ from bs4 import BeautifulSoup
 soup = BeautifulSoup(open('result.html'),"html.parser")
 titleArr = soup.select('.u')
 #标题
-headerTitle = titleArr[0].get_text()
+if titleArr:
+    headerTitle = titleArr[0].get_text()
+else:
+    headerTitle = 'Default Header Title'
 formatText = headerTitle + '\n'
 
 #新闻
@@ -25,7 +28,7 @@ for a in soup.select('.history-wrap > .line a'):
 	index += 1
 	history += str(index) + '. ' + a.get_text() + '\n'
 
-formatText += history + '\n'
+formatText = formatText + history + '\n'
 
 #时间进度条
 progress = '时间进度条: ' + soup.select('.progress-bar')[0].get_text()
