@@ -1,16 +1,13 @@
 from bs4 import BeautifulSoup
 
 soup = BeautifulSoup(open('result.html'),"html.parser")
-titleArr = soup.select('.u')
 
-#标题
-if titleArr:
-    headerTitle = titleArr[0].get_text()
-else:
-    headerTitle = 'Default Header Title'
-formatText = headerTitle + '\n'
+try:
+    headerTitle = soup.select('.u')[0].get_text()
+except IndexError:
+    headerTitle = None
+formatText = (headerTitle or '') + '\n'
 
-#新闻
 newsStr = ""
 newsElement = soup.select('.news-wrap > .line')
 for div in newsElement:
@@ -18,36 +15,31 @@ for div in newsElement:
     newsStr += news
 formatText += newsStr + '\n'
 
-#历史上的今天
-historyTitleArr = soup.select('.u')
-if len(historyTitleArr) > 1:
-    historyTitle = historyTitleArr[1].get_text()
-else:
-    historyTitle = 'Default History Title'
-formatText += historyTitle + '\n'
-historyArr = soup.select('.history-wrap > .line a')
+try:
+    historyTitle = soup.select('.u')[1].get_text()
+except IndexError:
+    historyTitle = None
+formatText += (historyTitle or '') + '\n'
+
 index = 0
 history = ''
 for a in soup.select('.history-wrap > .line a'):
     index += 1
     history += str(index) + '. ' + a.get_text() + '\n'
-formatText = formatText + history + '\n'
+formatText += history + '\n'
 
-#时间进度条
-progressArr = soup.select('.progress-bar')
-if progressArr:
-    progress = '时间进度条: ' + progressArr[0].get_text()
-else:
-    progress = '时间进度条: N/A'
-formatText += progress + '\n'
+try:
+    progress = '时间进度条: ' + soup.select('.progress-bar')[0].get_text()
+except IndexError:
+    progress = None
+formatText += (progress or '') + '\n'
 
-lineArr = soup.select('.line')
-if lineArr:
-    progress_text = lineArr[-1].get_text()
-else:
-    progress_text = 'N/A'
-formatText += progress_text + '\n'
+try:
+    progress_text = soup.select('.line')[-1].get_text()
+except IndexError:
+    progress_text = None
+formatText += (progress_text or '') + '\n'
 
 filename = 'result.txt'
-with open (filename,'w') as file:
-    file.write(formatText)   
+with open(filename, 'w') as file:
+    file.write(formatText)
