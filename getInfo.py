@@ -36,7 +36,11 @@ for a in historyArr:
 formatText = formatText + history + '\n'
 
 #时间进度条
-progress = '时间进度条: ' + soup.select('.progress-bar')[0].get_text()
+progressArr = soup.select('.progress-bar')
+if progressArr:
+    progress = '时间进度条: ' + progressArr[0].get_text()
+else:
+    progress = '时间进度条: N/A'
 progress_text = soup.select('.line')[-1].get_text()
 formatText += progress + '\n'
 formatText += progress_text + '\n'
