@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 
 soup = BeautifulSoup(open('result.html'),"html.parser")
 titleArr = soup.select('.u')
+
 #标题
 if titleArr:
     headerTitle = titleArr[0].get_text()
@@ -13,8 +14,8 @@ formatText = headerTitle + '\n'
 newsStr = ""
 newsElement = soup.select('.news-wrap > .line')
 for div in newsElement:
-	news = div.get_text() + '\n'
-	newsStr += news
+    news = div.get_text() + '\n'
+    newsStr += news
 formatText += newsStr + '\n'
 
 #历史上的今天
@@ -24,15 +25,12 @@ if len(historyTitleArr) > 1:
 else:
     historyTitle = 'Default History Title'
 formatText += historyTitle + '\n'
-
 historyArr = soup.select('.history-wrap > .line a')
 index = 0
 history = ''
-
-for a in historyArr:
+for a in soup.select('.history-wrap > .line a'):
     index += 1
     history += str(index) + '. ' + a.get_text() + '\n'
-
 formatText = formatText + history + '\n'
 
 #时间进度条
@@ -41,15 +39,15 @@ if progressArr:
     progress = '时间进度条: ' + progressArr[0].get_text()
 else:
     progress = '时间进度条: N/A'
-progress_text = soup.select('.line')[-1].get_text()
 formatText += progress + '\n'
+
+lineArr = soup.select('.line')
+if lineArr:
+    progress_text = lineArr[-1].get_text()
+else:
+    progress_text = 'N/A'
 formatText += progress_text + '\n'
+
 filename = 'result.txt'
 with open (filename,'w') as file:
     file.write(formatText)   
-
-
-
-
-
-
