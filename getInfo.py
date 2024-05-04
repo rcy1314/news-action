@@ -18,20 +18,20 @@ for div in newsElement:
 formatText += newsStr + '\n'
 
 #历史上的今天
-elements = soup.select('.u')
-if len(elements) > 1:
-    historyTitle = elements[1].get_text()
+historyTitleArr = soup.select('.u')
+if len(historyTitleArr) > 1:
+    historyTitle = historyTitleArr[1].get_text()
 else:
-    historyTitle = "Default Title"
-historyTitle = soup.select('.u')[1].get_text()
+    historyTitle = 'Default History Title'
 formatText += historyTitle + '\n'
+
 historyArr = soup.select('.history-wrap > .line a')
 index = 0
 history = ''
 
-for a in soup.select('.history-wrap > .line a'):
-	index += 1
-	history += str(index) + '. ' + a.get_text() + '\n'
+for a in historyArr:
+    index += 1
+    history += str(index) + '. ' + a.get_text() + '\n'
 
 formatText = formatText + history + '\n'
 
